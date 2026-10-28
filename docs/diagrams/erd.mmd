@@ -1,0 +1,52 @@
+erDiagram
+    USERS ||--o{ EVENTS : "организует"
+    USERS ||--o{ TICKETS : "покупает"
+    VENUES ||--o{ SEATS : "содержит"
+    VENUES ||--o{ EVENTS : "принимает"
+    EVENTS ||--o{ TICKETS : "продаёт"
+    SEATS ||--o{ TICKETS : "занимается"
+
+    USERS {
+        uuid id PK
+        string email UK
+        string password_hash
+        string full_name
+        string role "user, organizer"
+        timestamp created_at
+    }
+
+    VENUES {
+        uuid id PK
+        string name UK
+        string address
+        timestamp created_at
+    }
+
+    SEATS {
+        uuid id PK
+        uuid venue_id FK
+        string row_label
+        int seat_number
+    }
+
+    EVENTS {
+        uuid id PK
+        uuid venue_id FK
+        uuid organizer_id FK
+        string title
+        string description
+        timestamp starts_at
+        decimal price
+        string status "draft, published, cancelled, finished"
+        timestamp created_at
+    }
+
+    TICKETS {
+        uuid id PK
+        uuid event_id FK
+        uuid seat_id FK
+        uuid user_id FK
+        decimal price_paid
+        string status "reserved, paid, cancelled"
+        timestamp created_at
+    }
