@@ -1,8 +1,15 @@
+from pathlib import Path
+import sys
+
+# Позволяет запускать файл напрямую: python cmd/app/main.py.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+import uvicorn
 from fastapi import FastAPI
 
-from app.config.settings import Settings
-from app.controller.health import create_health_router
-from app.service.health import HealthService
+from internal.config.settings import Settings
+from internal.controller.health import create_health_router
+from internal.service.health import HealthService
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -24,3 +31,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
 
 app = create_app()
+
+
+if __name__ == "__main__":
+    settings = app.state.settings
+    uvicorn.run(app, host=settings.http_host, port=settings.http_port)

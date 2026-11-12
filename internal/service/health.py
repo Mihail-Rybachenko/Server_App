@@ -1,6 +1,15 @@
+from dataclasses import dataclass
 from time import monotonic
+from typing import Literal
 
-from app.domain.health import HealthStatus
+
+@dataclass(frozen=True)
+class HealthStatus:
+    status: Literal["pass"]
+    app: str
+    version: str
+    environment: str
+    uptime: float
 
 
 class HealthService:

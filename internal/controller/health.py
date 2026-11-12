@@ -4,7 +4,7 @@ from typing import Literal
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
-from app.service.health import HealthService
+from internal.service.health import HealthService
 
 
 class HealthResponse(BaseModel):
