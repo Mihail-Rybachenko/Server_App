@@ -34,5 +34,5 @@ app = create_app()
 
 
 if __name__ == "__main__":
-    settings = app.state.settings
-    uvicorn.run(app, host=settings.http_host, port=settings.http_port)
+    server_settings = app.state.settings
+    uvicorn.run(app, host=server_settings.http_host, port=server_settings.http_port)
